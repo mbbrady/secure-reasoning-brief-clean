@@ -1,0 +1,102 @@
+================================================================================
+RKL SECURE REASONING BRIEF - RECORDING TRANSCRIPT v2
+Recording Date: November 25, 2025
+Target Duration: 3:00-3:10 (180-190 seconds)
+Recording Strategy: Section-by-section (2-take maximum per section)
+================================================================================
+
+INSTRUCTIONS FOR RECORDING:
+- Record each section separately (01-opening.wav, 02-problem.wav, etc.)
+- Take up to 2 takes per section maximum
+- Leave 2 seconds of silence before/after each take
+- Don't edit as you go - save all editing for laptop later
+- Speak clearly at moderate pace (not rushed)
+- Emphasize key phrases: "Type III", "provable", "honest prototype"
+
+================================================================================
+
+===== SECTION 1: OPENING (50 seconds) =====
+File: 01-opening.wav
+
+Hi, I'm Mike Brady. In this video, I'll show you my capstone project for the Kaggle AI Agents Intensive Course with Google that took place in November 2025.
+
+For the capstone, I built an 18-agent system demonstrating Type III Secure Reasoning—a framework I developed where raw data stays local, but derived insights can be reasoned over by cloud AI. It monitors AI safety papers and generates automated daily briefs and weekly blogs written by Gemini.
+
+I'm using public article text data as a proxy to demonstrate the architecture I need for actual sensitive data.
+
+For full disclosure, I relied heavily on Claude Code and ChatGPT to implement the system. I designed the architecture and workflows; AI helped me turn this idea into a working system much faster than I could alone.
+
+
+================================================================================
+
+===== SECTION 2: PROBLEM & SOLUTION (15 seconds) =====
+File: 02-problem.wav
+
+To demonstrate this architecture, I built an AI safety research monitor
+
+The challenge: hundreds of papers on AI safety are published every week making it hard to track critical insights, especially advances in what I call secure reasoning.
+
+The solution: automated daily briefs and weekly analysis. Every step generates telemetry for provable Type III compliance—local processing for raw content, cloud reasoning for synthesis.
+
+================================================================================
+
+===== SECTION 3: ARCHITECTURE OVERVIEW (25 seconds) =====
+File: 03-architecture.wav
+
+The architecture uses 18 agents across four phases. Discovery and processing happen locally with Ollama—raw papers never leave the system. Quality analysis and publication use Gemini, but it only sees summaries of the raw data. This is Type III in action: sensitive data never leaves the local system, but cloud AI still powers the reasoning.
+
+================================================================================
+
+===== SECTION 4: DEMO - DAILY BRIEF (20 seconds) =====
+File: 04-daily-brief.wav
+
+The system runs twice daily. Each run processes up to 20 papers and produces a brief you can read in two to three minutes. On screen, here's today's morning brief showing the structure: headline findings, must-read papers with practical insights, and resarch patterns worth tracking.
+
+================================================================================
+
+===== SECTION 5: DEMO - WEEKLY SYNTHESIS (20 seconds) =====
+File: 05-weekly-synthesis.wav
+
+Every Sunday, the system generates a comprehensive weekly blog synthesizing the full week of papers. Gemini writes this based only on summaries—never raw article text. This demonstrates the Type III boundary in action: cloud AI produces quality analysis without accessing the raw source data, showing how the pattern could apply to actual sensitive data scenarios.
+
+================================================================================
+
+===== SECTION 6: TELEMETRY PROOF (25 seconds) =====
+File: 06-telemetry.wav
+
+The system proves Type III compliance using telemetry. Every agent logs what data it processed and whether raw data crossed the boundary. The governance ledger provides explicit verification at each step. This isn't just logging—it's machine-readable, time-stamped provable evidence that data boundaries are maintained throughout the pipeline.
+
+================================================================================
+
+===== SECTION 7: REAL-WORLD IMPACT (15 seconds) =====
+File: 07-impact.wav
+
+This system runs in production, fully automated via cron, processing hundreds of papers every week into daily briefs and comprehensive weekly analysis. It's useful for tracking AI safety research, and it demonstrates how the Type III pattern may apply to real-world sensitive data scenarios.
+
+================================================================================
+
+===== SECTION 8: CLOSING (20 seconds) =====
+File: 08-closing.wav
+
+This project demonstrates Type III Secure Reasoning: local processing for raw data, cloud AI for derived insights, with telemetry proving the boundaries held. It's a working system that aims to solve a real problem, and it shows a pattern that could apply wherever sensitive data meet powerful AI.
+
+The code, white paper, and dataset are all available in the submission. Thanks for watching.
+
+================================================================================
+
+CHANGES FROM v1:
+- Section 1: Added comma after "models" for better speech flow
+- Section 2: "weekly" → "every week"; added "for provable"
+- Section 3: Changed dash to colon in final sentence for speech rhythm
+- Section 4: "2-3" → "two to three"; added "On screen," visual cue
+- Section 5: "seeing only" → "based only on"; "proves" → "demonstrates" (reduced repetition)
+- Section 6: Added "provable" before "evidence"
+- Section 7: Added comma after "production"; "weekly" → "every week"; added "honest, working prototype"
+- Section 8: No changes (already strong)
+
+TOTAL ESTIMATED DURATION: ~190 seconds (3:10)
+RECORDING FILES: 8 separate WAV files (01-opening.wav through 08-closing.wav)
+
+================================================================================
+END OF TRANSCRIPT v2
+================================================================================

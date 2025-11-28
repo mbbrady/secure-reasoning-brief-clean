@@ -1,0 +1,52 @@
+{
+  "date": "2025-11-21",
+  "rkl_version": "1.0",
+  "artifacts": {
+    "system_state": {
+      "rows": 124,
+      "writes": 62,
+      "schema_version": "v1.0"
+    },
+    "retrieval_provenance": {
+      "rows": 248,
+      "writes": 62,
+      "schema_version": "v1.0"
+    },
+    "reasoning_graph_edge": {
+      "rows": 1490,
+      "writes": 88,
+      "schema_version": "v1.0"
+    },
+    "execution_context": {
+      "rows": 1629,
+      "writes": 69,
+      "schema_version": "v1.0"
+    },
+    "boundary_event": {
+      "rows": 1693,
+      "writes": 69,
+      "schema_version": "v1.0"
+    },
+    "secure_reasoning_trace": {
+      "rows": 490,
+      "writes": 50,
+      "schema_version": "v1.0"
+    },
+    "quality_trajectories": {
+      "rows": 490,
+      "writes": 50,
+      "schema_version": "v1.0"
+    },
+    "governance_ledger": {
+      "rows": 50,
+      "writes": 50,
+      "schema_version": "v1.0"
+    },
+    "hallucination_matrix": {
+      "rows": 190,
+      "writes": 18,
+      "schema_version": "v1.0"
+    }
+  },
+  "generated_at": "2025-11-21T14:01:25.776248Z"
+}

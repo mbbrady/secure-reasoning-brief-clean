@@ -1,0 +1,163 @@
+# Agent D: Technical Summarizer
+# Purpose: Generate concise technical summaries of research articles
+
+agent:
+  name: "Technical Summarizer"
+  id: "summarizer"
+  version: "1.0"
+  type: "processing"
+
+model:
+  primary: "llama3.2:8b"
+  fallback: "mistral:7b"
+  temperature: 0.3
+  top_p: 0.9
+
+system_prompt: |
+  You are an expert in AI safety, verifiable AI, trustworthy AI, and governance research.
+  You work for Resonant Knowledge Lab (RKL), which practices Type III secure reasoning
+  under CARE principles (Collective Benefit, Authority to Control, Responsibility, Ethics).
+
+  Your role is to create concise, accurate technical summaries for organizational leaders
+  who need to understand AI governance developments.
+
+  Guidelines:
+  - Be precise and factual
+  - Use RKL terminology correctly (Type I/II/III, CARE, secure reasoning)
+  - Focus on methodology, findings, and governance implications
+  - Avoid unexplained jargon
+  - Stay within strict word limits
+
+prompts:
+  technical_summary:
+    template: |
+      Summarize this research article in exactly {max_words} words.
+      Focus on: research question, methodology, key findings, and implications for AI governance.
+
+      Title: {title}
+      Abstract/Content: {content}
+
+      Provide only the summary, no preamble or meta-commentary.
+
+      Technical summary ({max_words} words):
+
+    parameters:
+      max_words: 80
+      temperature: 0.3
+      max_tokens: 150
+      stop_sequences: ["\n\n"]
+
+    quality_checks:
+      - check: "word_count"
+        min: 60
+        max: 80
+        strict: true
+      - check: "contains_findings"
+        required: true
+      - check: "no_filler_phrases"
+        avoid: ["it is interesting", "this paper", "the authors"]
+
+  extract_methodology:
+    template: |
+      Extract the research methodology from this article in 1-2 sentences.
+
+      Content: {content}
+
+      Methodology:
+
+    parameters:
+      temperature: 0.2
+      max_tokens: 60
+
+  identify_contributions:
+    template: |
+      What are the 2-3 key contributions or findings of this research?
+      List them as bullet points.
+
+      Content: {content}
+
+      Key contributions:
+
+    parameters:
+      temperature: 0.3
+      max_tokens: 100
+
+quality_standards:
+  min_score: 7.0
+  required_elements:
+    - "methodology_mentioned"
+    - "findings_clear"
+    - "implications_stated"
+
+  forbidden_patterns:
+    - "very interesting"
+    - "groundbreaking"
+    - "revolutionary"
+    - "this paper discusses"
+
+  rkl_terminology_check: true
+  required_context: ["governance", "trustworthy", "verifiable", "secure"]
+
+output:
+  format: "json"
+  schema:
+    technical_summary: "string (60-80 words)"
+    methodology: "string"
+    key_contributions: "list[string]"
+    confidence: "float (0-1)"
+
+  metadata:
+    include_model_used: true
+    include_timestamp: true
+    include_token_count: true
+
+governance:
+  data_classification: "public_source"
+  processing_location: "local"
+  care_compliance: "type_3_processing"
+  audit_level: "standard"
+
+  lineage_tracking:
+    enabled: true
+    include_input_hash: true
+    include_prompt_version: true
+
+performance:
+  timeout_seconds: 120
+  retry_on_failure: 3
+  retry_delay_seconds: 5
+
+  monitoring:
+    track_latency: true
+    track_token_usage: true
+    track_success_rate: true
+    alert_on_failure_rate: 0.10  # Alert if >10% failures
+
+telemetry:
+  log_level: "INFO"
+  log_file: "data/logs/agent_traces/summarizer/{date}.log"
+  metrics_file: "telemetry/performance/summarizer.jsonl"
+
+  capture:
+    - "execution_time"
+    - "token_count"
+    - "word_count"
+    - "quality_score"
+    - "model_used"
+
+examples:
+  good_summary: |
+    "This study introduces a formal verification framework for transformer models,
+    enabling mathematical proofs of safety properties. Using automated theorem proving,
+    the authors demonstrate verification of attention mechanisms in language models.
+    Results show 99.3% accuracy in detecting unsafe behaviors. This advances trustworthy
+    AI by making neural network reasoning auditable, addressing a key governance challenge
+    in deploying AI systems in safety-critical domains."
+
+  bad_summary: |
+    "This very interesting paper discusses how the authors developed a groundbreaking
+    new approach to verify AI models. They used various techniques and found some
+    results. This could be important for AI safety and might help organizations."
+
+version: "1.0"
+last_updated: "2025-11-11"

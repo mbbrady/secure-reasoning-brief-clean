@@ -1,0 +1,297 @@
+# Agent J: QA Reviewer (Gemini-Enhanced)
+# Purpose: Ensure quality standards using Google Gemini for critical review
+#
+# This configuration demonstrates hybrid model usage learned in the
+# 5-Day AI Agents Intensive Course: Gemini for critical QA tasks,
+# with local Ollama fallback for cost-efficiency.
+
+agent:
+  name: "QA Reviewer (Gemini)"
+  id: "qa_reviewer_gemini"
+  version: "1.1-gemini"
+  type: "governance"
+  critical: true  # Failures block publication
+
+model:
+  # Gemini for critical review (Course capstone requirement)
+  primary: "gemini-2.0-flash"  # Fast, accurate, cost-effective
+  fallback: "llama3.2:70b"     # Local fallback if Gemini unavailable
+
+  # Model selection strategy
+  use_gemini_for:
+    - "qa_review"           # Primary QA review
+    - "fact_check"          # Fact verification
+    - "compliance_check"    # Governance compliance
+
+  use_ollama_for:
+    - "word_count"          # Simple counting tasks
+    - "format_check"        # Syntax validation
+
+  temperature: 0.1  # Very low for consistency
+  top_p: 0.85
+  max_tokens: 1000
+
+system_prompt: |
+  You are a quality assurance specialist for RKL (Resonant Knowledge Lab).
+  Your role is to review weekly briefs before publication to ensure they meet
+  high standards of quality, accuracy, and RKL governance principles.
+
+  You must be thorough, objective, and constructive. Your reviews directly
+  impact what gets published, so accuracy is critical.
+
+  Review Principles:
+  - Quality over speed
+  - Be specific in feedback
+  - Flag serious issues as failures
+  - Suggest concrete improvements
+  - Maintain RKL standards
+
+  This review uses Google Gemini to demonstrate enterprise-grade AI governance
+  practices as part of RKL's commitment to showcasing best practices in
+  secure reasoning architectures.
+
+# (Keep all existing quality_rubric, thresholds, prompts from original)
+quality_rubric:
+  categories:
+    content_quality:
+      weight: 0.30
+      checks:
+        - name: "technical_accuracy"
+          description: "Summaries match source articles"
+          score_range: [0, 10]
+        - name: "readability"
+          description: "Appropriate for target audience"
+          score_range: [0, 10]
+        - name: "completeness"
+          description: "All required sections present"
+          score_range: [0, 10]
+
+    rkl_compliance:
+      weight: 0.25
+      checks:
+        - name: "terminology_correct"
+          description: "Type I/II/III, CARE used correctly"
+          score_range: [0, 10]
+        - name: "attribution_complete"
+          description: "Provenance and sources cited"
+          score_range: [0, 10]
+        - name: "type3_explained"
+          description: "Type III nature mentioned"
+          score_range: [0, 10]
+
+    technical_quality:
+      weight: 0.20
+      checks:
+        - name: "word_limits_met"
+          description: "Summaries within 80-word limit"
+          score_range: [0, 10]
+          strict: true
+        - name: "formatting_correct"
+          description: "Markdown and Hugo front-matter valid"
+          score_range: [0, 10]
+        - name: "links_valid"
+          description: "All URLs work"
+          score_range: [0, 10]
+
+    organizational_value:
+      weight: 0.15
+      checks:
+        - name: "implications_clear"
+          description: "Clear what orgs should do"
+          score_range: [0, 10]
+        - name: "recommendations_actionable"
+          description: "Concrete, specific actions"
+          score_range: [0, 10]
+
+    writing_quality:
+      weight: 0.10
+      checks:
+        - name: "grammar_correct"
+          description: "No grammatical errors"
+          score_range: [0, 10]
+        - name: "style_consistent"
+          description: "Maintains professional tone"
+          score_range: [0, 10]
+
+thresholds:
+  pass_score: 7.0
+  critical_checks:
+    - "word_limits_met"
+    - "formatting_correct"
+    - "attribution_complete"
+
+  failure_actions:
+    score_below_7: "return_for_revision"
+    score_below_5: "escalate_to_human"
+    critical_check_failed: "block_publication"
+
+max_iterations: 3
+escalate_after_iterations: 3
+
+prompts:
+  review_brief:
+    template: |
+      Review this Secure Reasoning Brief for quality and compliance.
+      Score each category 0-10 and provide specific feedback.
+
+      Brief content:
+      {brief_content}
+
+      Review Structure:
+      1. Overall Assessment (score 0-10)
+      2. Category Scores (content_quality, rkl_compliance, technical_quality, etc.)
+      3. Specific Issues Found (list with severity: critical/major/minor)
+      4. Recommendations for Improvement
+      5. Decision: PASS / REVISE / FAIL
+
+      Be thorough but constructive.
+
+      Review:
+
+    parameters:
+      temperature: 0.1
+      max_tokens: 1000
+      task_type: "qa_review"  # Triggers Gemini usage
+
+  check_word_counts:
+    template: |
+      Count the words in each technical summary section.
+      Summaries must be 60-80 words.
+
+      Brief content:
+      {brief_content}
+
+      For each article summary, report:
+      - Article title
+      - Word count
+      - Status: PASS (60-80) / WARN (50-90) / FAIL (<50 or >90)
+
+      Word count check:
+
+    parameters:
+      temperature: 0.0
+      max_tokens: 500
+      task_type: "word_count"  # Uses Ollama (simple task)
+
+  verify_rkl_terminology:
+    template: |
+      Check if this brief correctly uses RKL terminology:
+      - Type I / Type II / Type III secure reasoning
+      - CARE Principles (Collective Benefit, Authority to Control, Responsibility, Ethics)
+      - Secure reasoning
+      - Governance metadata
+      - Provenance
+
+      Brief content:
+      {brief_content}
+
+      Report:
+      - Terms used correctly: [list]
+      - Terms used incorrectly: [list with corrections]
+      - Missing required terms: [list]
+      - Overall RKL compliance: PASS / FAIL
+
+      Terminology check:
+
+    parameters:
+      temperature: 0.0
+      max_tokens: 300
+      task_type: "compliance_check"  # Triggers Gemini usage
+
+feedback_style: "constructive"
+
+feedback_template: |
+  QA Review - {decision}
+  Overall Score: {overall_score}/10
+  Model Used: {model_used}
+
+  Category Scores:
+  {category_scores}
+
+  Issues Found:
+  {issues}
+
+  Recommendations:
+  {recommendations}
+
+  {decision_explanation}
+
+output:
+  format: "json"
+  schema:
+    decision: "enum[PASS, REVISE, FAIL]"
+    overall_score: "float"
+    category_scores: "dict"
+    issues: "list[dict]"
+    recommendations: "list[string]"
+    iteration: "int"
+    model_used: "string"  # Track which model was used
+
+  save_to:
+    - "telemetry/quality/scores_gemini.jsonl"
+    - "audit/compliance/qa_reports/{date}_{brief_id}_gemini.json"
+
+governance:
+  critical_agent: true
+  blocks_publication: true
+  requires_audit: true
+
+  audit_captures:
+    - "full_brief_content"
+    - "all_scores"
+    - "decision_reasoning"
+    - "issues_found"
+    - "model_used"  # Track Gemini vs Ollama usage
+
+performance:
+  timeout_seconds: 300
+  retry_on_failure: 1
+
+  monitoring:
+    track_review_time: true
+    track_pass_rate: true
+    track_revision_rounds: true
+    track_model_usage: true  # Monitor Gemini vs Ollama usage
+    alert_on_high_failure_rate: 0.30
+
+telemetry:
+  log_level: "INFO"
+  log_file: "data/logs/agent_traces/qa_reviewer_gemini/{date}.log"
+  metrics_file: "telemetry/quality/scores_gemini.jsonl"
+
+  capture:
+    - "review_duration"
+    - "overall_score"
+    - "pass_fail_decision"
+    - "issues_count"
+    - "iteration_number"
+    - "model_used"  # Gemini or Ollama
+    - "gemini_tokens_used"  # For cost tracking
+
+human_escalation:
+  enabled: true
+  conditions:
+    - "score < 5.0"
+    - "iterations >= 3"
+    - "critical_check_failed"
+
+  notification:
+    method: "log"
+    message: "QA Review requires human intervention: {reason}"
+
+# Capstone documentation
+capstone_notes: |
+  This configuration demonstrates key concepts from the 5-Day AI Agents Intensive:
+
+  1. Multi-agent system: QA Reviewer as part of 18-agent governance pipeline
+  2. Tools: Hybrid model client (Gemini + Ollama)
+  3. Observability: Complete logging and telemetry
+  4. Agent evaluation: Quality scoring and governance checks
+  5. Gemini usage: Critical QA tasks use Gemini API (bonus points!)
+
+  The hybrid approach maintains RKL's zero-cost philosophy while demonstrating
+  enterprise-grade AI practices with commercial APIs for critical tasks.
+
+version: "1.1-gemini"
+last_updated: "2025-11-16"
+course: "Kaggle 5-Day AI Agents Intensive - Capstone Project"

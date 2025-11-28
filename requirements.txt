@@ -1,0 +1,21 @@
+# RKL Secure Reasoning Brief Agent - Python Dependencies
+
+# Core dependencies
+python-dotenv==1.0.0        # Environment variable management
+requests==2.31.0            # HTTP client for Ollama API
+feedparser==6.0.10          # RSS/Atom feed parsing
+numpy<2                     # Ensure wheels compatible with pandas/pyarrow in env
+
+# Configuration
+pyyaml==6.0.1              # YAML configuration support
+psutil==5.9.8              # System-state telemetry (CPU/mem/load snapshots)
+
+# Research data logging (rkl_logging package)
+pandas==2.1.0              # DataFrame operations
+pyarrow==14.0.0            # Parquet file support
+
+# Google Gemini API (for Kaggle Capstone - hybrid model approach)
+google-generativeai>=0.8.0  # Gemini API for critical QA tasks
+
+# Note: Hybrid approach - Gemini for critical tasks, Ollama for bulk processing
+# Maintains zero-cost operation while demonstrating enterprise AI practices

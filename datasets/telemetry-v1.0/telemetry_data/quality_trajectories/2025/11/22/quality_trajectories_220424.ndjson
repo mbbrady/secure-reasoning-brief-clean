@@ -1,0 +1,1 @@
+{"session_id": "brief-2025-11-22-33ee12cf", "artifact_id": "196807881abcccb59dc465aa25864268122caf58d698eb523eedd1e49cf747b1", "version": 1, "score_name": "summary_presence", "score": 1.0, "evaluator_id": "pipeline", "reason_tag": "non_empty_fields", "time_to_next_version": 0, "rkl_version": "1.0", "timestamp": "2025-11-22T22:04:24.480235Z", "type3_compliant": true}

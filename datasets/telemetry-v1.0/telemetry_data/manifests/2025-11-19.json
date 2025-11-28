@@ -1,0 +1,27 @@
+{
+  "date": "2025-11-19",
+  "rkl_version": "1.0",
+  "artifacts": {
+    "reasoning_graph_edge": {
+      "rows": 482,
+      "writes": 18,
+      "schema_version": "v1.0"
+    },
+    "governance_ledger": {
+      "rows": 8,
+      "writes": 8,
+      "schema_version": "v1.0"
+    },
+    "execution_context": {
+      "rows": 360,
+      "writes": 12,
+      "schema_version": "v1.0"
+    },
+    "boundary_event": {
+      "rows": 360,
+      "writes": 12,
+      "schema_version": "v1.0"
+    }
+  },
+  "generated_at": "2025-11-19T14:00:46.084546Z"
+}

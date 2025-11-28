@@ -1,0 +1,22 @@
+{
+  "title": "RKL Secure Reasoning Brief Telemetry",
+  "id": "mbbrady/rkl-secure-reasoning-telemetry",
+  "licenses": [
+    {
+      "name": "CC-BY-4.0"
+    }
+  ],
+  "keywords": [
+    "multi-agent-systems",
+    "ai-safety",
+    "telemetry",
+    "secure-reasoning",
+    "agent-coordination",
+    "llm-performance",
+    "research-data",
+    "kaggle-competition"
+  ],
+  "subtitle": "Phase 0+1+2 telemetry from 18-agent system (Nov 17-26, 2025)",
+  "description": "Research-grade telemetry from the Resonant Knowledge Lab Secure Reasoning Brief system - an 18-agent multi-agent system demonstrating Type III Secure Reasoning (defined in included white paper). Includes 9 artifact types tracking agent behavior, decisions, and quality metrics. Features Phase 2 enhancements: artifact ID linking and step-level timing (Unix ms precision).",
+  "isPrivate": true
+}

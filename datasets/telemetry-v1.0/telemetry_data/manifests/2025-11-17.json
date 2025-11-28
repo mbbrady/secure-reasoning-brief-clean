@@ -1,0 +1,28 @@
+{
+  "date": "2025-11-17",
+  "rkl_version": "1.0",
+  "artifacts": {
+    "execution_context": {
+      "rows": 59,
+      "writes": 2,
+      "schema_version": "v1.0"
+    },
+    "reasoning_graph_edge": {
+      "rows": 120,
+      "writes": 4,
+      "schema_version": "v1.0"
+    },
+    "boundary_event": {
+      "rows": 59,
+      "writes": 2,
+      "schema_version": "v1.0"
+    },
+    "governance_ledger": {
+      "rows": 2,
+      "writes": 2,
+      "schema_version": "v1.0"
+    }
+  },
+  "generated_at": "2025-11-18T02:33:54.022077Z",
+  "corrected_by": "fix_manifest.py"
+}
