@@ -102,6 +102,10 @@ During each run, `StructuredLogger` records:
 
 These artifacts are written as partitioned Parquet files with daily manifests under `datasets/telemetry-v1.0/telemetry_data/`. The dataset is mirrored to Hugging Face and Kaggle (see competition submission for links).
 
+Public dataset links:
+- **Hugging Face:** https://huggingface.co/datasets/rkl-org/rkl-secure-reasoning-brief-telemetry
+- **Kaggle:** https://www.kaggle.com/datasets/bradyopenmaps/rkl-secure-reasoning-brief-telemetry
+
 ---
 
 ## 🤝 Development Transparency
